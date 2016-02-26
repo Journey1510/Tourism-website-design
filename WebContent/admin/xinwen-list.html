@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>大黑牛旅游网</title>
+<script type="text/javascript" src="../js/jquery-1.11.1.min.js" ></script>
+<script type="text/javascript" src="../js/bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+<script type="text/javascript"></script>
+<link href="../style/bootstrap.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../style/font-awesome.css"/>
+</head>
+<body>
+<div class="containter">
+ <div class="box">
+   <div class="theme"></div>
+   <div class="title"></div>
+   <div class="welcome">
+   <marquee direction="left" behavior="scroll"  scrollamount="3"  onmouseover="this.stop();"   onmouseout="this.start();">欢迎访问大黑牛旅游网！</marquee>
+   </div>
+   <div class="area">
+       <div class="left">
+          <ul>
+							<li><a href="jindian-add.html" >旅游景点添加</a>
+							</li>
+							<li><a href="jindian-list.html" >旅游景点维护</a>
+							</li>
+							<li><a href="ticket-add.html">旅游门票添加</a>
+							</li>
+							<li><a href="ticket-list.html">旅游门票维护</a>
+							</li>
+							<li><a href="xianlu-add.html">旅游线路添加</a>
+							</li>
+							<li><a href="xianlu-list.html">旅游线路维护</a>
+							</li>
+							<li><a href="xinwen-add.html">网站新闻添加</a>
+							</li>
+							<li><a href="xinwen-list.html" id="click">网站新闻维护</a>
+							</li>
+							<li><a href="admin-add.html" >管理用户添加</a>
+							</li>
+							<li><a href="admin-list.html">管理用户维护</a>
+							</li>
+          </ul>
+       </div>
+       <div class="right" >
+        <div class="selected">
+       		<form class="form form-group">
+       			<span>新闻标题：</span>&nbsp;<input type="text" name="name" id="name" />&nbsp;&nbsp;
+       			<span>新闻内容：</span>&nbsp;<input type="text" name="text" id="text" />&nbsp;&nbsp;
+       			<button type="button" class="btn btn-success btn-sm" id="selectbtn">模糊查询</button>
+       		</form>
+       	</div>       
+       	<div id="right"></div>
+          
+       </div>
+       <div class="clear"></div>
+   </div>
+ </div>
+</div>
+</body>
+
+<script>$(function() {
+	$.ajax({
+		type: "get",
+		url: "../xinwen/selectall.do",
+		async: true,
+		dataType: "json"
+	}).done(function(data) {
+		if (data.success == true) {
+			$.each(data.data, function(i, item) {
+				var id=item.id;
+				var imgurl = item.imgurl;
+				var name = item.name;
+				var text = item.text;
+				$("#right").prepend("<div><div class='gdimg' ><img src='../" + imgurl + "' style='width:330px;height:280px' /></div><div class='gdimg' style='margin-left:10px;	text-indent:2em;line-height:1.5em;' ><h2 style='text-indent:140px;font-size:20px' >" + name + "</h2><div>" + text + "</div>"
+				+ "<button type='button' value='"+id+"' class='btn btn-danger btn-lg active' role='button'>删除</button>"
+				+ "<button type='button' value='"+id+"' class='btn btn-primary btn-lg active' role='button'>修改</button></div></div>")
+			});
+		} else {
+			alert("error")
+		}
+	
+		
+		$(".btn-primary").on("click",function(){
+			$.ajax({
+				type:"get",
+				url:"../xinwen/select.do",
+				data:{id:$(this).val()},
+				async:true
+			}).done(function(data){
+				var jsonobj=jQuery.parseJSON(data);
+				if(jsonobj.hasErrors==false){
+					$("#right").empty();
+					$.each(jsonobj.data, function(i, item) {
+						var id=item.id;
+						var imgurl = item.imgurl;
+						var name = item.name;
+						var text = item.text;
+						$("#right").append("<div><form><input type='hidden' id='update_id'  value='"+id+"'/><span>图片地址</span><input id='update_imgurl' value='"+imgurl+"'/><br />"
+								+"<span>新闻标题</span><input id='update_name' value='"+name+"'/><br /><span>新闻内容</span><textarea  cols='30' rows='5'  id='update_text'  >"
+								+ text+"</textarea><br /><button type='button' class='btn btn-success' id='update_button' name='update_button'>提交</button><button type='reset' class='btn btn-default'>重置</button></form></div>")
+					});
+
+				}else{
+					alert("error")
+				}
+				
+				$("#update_button").on("click", function() {
+					$.post("../xinwen/update.do", {
+						id:$("#update_id").val(),
+						imgurl: $("#update_imgurl").val(),
+						name: $("#update_name").val(),
+						text: $("#update_text").val()
+					}, function(data) {
+						var jsonobj = jQuery.parseJSON(data);
+						if (jsonobj.hasErrors == false) {
+							alert("新闻信息提交成功");
+							window.location.href = "xinwen-list.html";
+						} else {
+							alert("新闻信息提交失败");
+						}
+					})
+				});
+	});
+		})
+		
+		
+		$(".btn-danger").on("click",function(){
+		$.post("../xinwen/delete.do",{id:$(this).val()},function(data){
+			var jsonobj = jQuery.parseJSON(data);
+					if (jsonobj.hasErrors == false) {
+						alert("新闻信息删除成功");
+						window.location.href = "xinwen-list.html";
+					} else {
+						alert("新闻信息删除失败");
+					}
+		})
+	});
+	});
+	
+	
+	$("#selectbtn").on("click",function(){
+		$.ajax({
+			type:"post",
+			url:"../xinwen/select.do",
+			data:{name:$("#name").val(),text:$("#text").val()},
+			async:true
+		}).done(function(data){
+			var jsonobj=jQuery.parseJSON(data);
+			if (jsonobj.success == true) {
+			$("#right").empty();
+			$.each(jsonobj.data, function(i, item) {
+				var id=item.id;
+				var imgurl = item.imgurl;
+				var name = item.name;
+				var text = item.text;
+				$("#right").prepend("<div><div class='gdimg' ><img src='../" + imgurl + "' style='width:330px;height:280px' /></div><div class='gdimg' style='margin-left:10px;	text-indent:2em;line-height:1.5em;' ><h2 style='text-indent:140px;font-size:20px' >" + name + "</h2><div>" + text + "</div>"
+						+ "<button type='button' value='"+id+"' class='btn btn-danger btn-lg active' role='button'>删除</button>"
+						+ "<button type='button' value='"+id+"' class='btn btn-primary btn-lg active' role='button'>修改</button></div></div>")
+			});
+		} else {
+			alert("error")
+		}
+		
+			$(".btn-primary").on("click",function(){
+				$.ajax({
+					type:"get",
+					url:"../xinwen/select.do",
+					data:{id:$(this).val()},
+					async:true
+				}).done(function(data){
+					var jsonobj=jQuery.parseJSON(data);
+					if(jsonobj.hasErrors==false){
+						$("#right").empty();
+						$.each(jsonobj.data, function(i, item) {
+							var id=item.id;
+							var imgurl = item.imgurl;
+							var name = item.name;
+							var text = item.text;
+							$("#right").append("<div><form><input type='hidden' id='update_id'  value='"+id+"'/><span>图片地址</span><input id='update_imgurl' value='"+imgurl+"'/><br />"
+									+"<span>新闻标题</span><input id='update_name' value='"+name+"'/><br /><span>新闻内容</span><textarea  cols='30' rows='5'  id='update_text'  >"
+									+ text+"</textarea><br /><button type='button' class='btn btn-success' id='update_button' name='update_button'>提交</button><button type='reset' class='btn btn-default'>重置</button></form></div>")
+						});
+
+					}else{
+						alert("error")
+					}
+					
+					$("#update_button").on("click", function() {
+						$.post("../xinwen/update.do", {
+							id:$("#update_id").val(),
+							imgurl: $("#update_imgurl").val(),
+							name: $("#update_name").val(),
+							text: $("#update_text").val()
+						}, function(data) {
+							var jsonobj = jQuery.parseJSON(data);
+							if (jsonobj.hasErrors == false) {
+								alert("新闻信息提交成功");
+								window.location.href = "xinwen-list.html";
+							} else {
+								alert("新闻信息提交失败");
+							}
+						})
+					});
+		});
+			})
+			
+			
+			$(".btn-danger").on("click",function(){
+			$.post("../xinwen/delete.do",{id:$(this).val()},function(data){
+				var jsonobj = jQuery.parseJSON(data);
+						if (jsonobj.hasErrors == false) {
+							alert("新闻信息删除成功");
+							window.location.href = "xinwen-list.html";
+						} else {
+							alert("新闻信息删除失败");
+						}
+			})
+		});	
+			
+		});
+	})
+})
+</script>
+</html>

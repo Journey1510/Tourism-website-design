@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>大黑牛旅游网</title>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js" ></script>
+<script type="text/javascript" src="js/bootstrap.js" ></script>
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+<script type="text/javascript"></script>
+<link href="style/bootstrap.css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/font-awesome.min.css"/>
+</head>
+<body>
+<div class="containter">
+ <div class="box">
+   <div class="theme"></div>
+   <div class="title"></div>
+   <div class="welcome">
+   <marquee direction="left" behavior="scroll"  scrollamount="3"  onmouseover="this.stop();"   onmouseout="this.start();">欢迎访问大黑牛旅游网！</marquee>
+   </div>
+   <div class="area">
+       <div class="left">
+          <ul>
+         <li><a href="index.html">网站简介</a></li>
+          <li><a href="2.html" >旅游景点介绍</a></li>
+          <li><a href="3.html">旅游线路介绍</a></li>
+          <li><a href="ticket.html" id="click">景点门票</a></li>
+          <li><a href="4.html" >网站新闻</a></li>
+          <li><a href="admin/adminlogin.html">后台管理</a></li>
+          </ul>
+       </div>
+       <div class="right" id="right">
+		   
+            <div class="clear"></div>
+          
+       </div>
+       <div class="clear"></div>
+   </div>
+ </div>
+</div>
+</body>
+<script>$(function() {
+
+	$.ajax({
+		type: "get",
+		url: "ticket/selectall.do",
+		async: true,
+		dataType: "json"
+	}).done(function(data) {
+		if (data.success == true) {
+			$.each(data.data, function(i, item) {
+				var name = item.name;
+				var text = item.text;
+				var price = item.price;
+				$("#right").prepend("<div><label class='control-label '>门票名称："+name+"</label><br/><label class='control-label '>门票价格:"+price+"</label><br/><label class='control-label '>门票描述:"+text+"</label><br/></div><br/><br/>")
+			});
+		} else {
+			alert("error")
+		}
+
+	});
+
+
+})</script>
+</html>

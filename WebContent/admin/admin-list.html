@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>大黑牛旅游网</title>
+<script type="text/javascript" src="../js/jquery-1.11.1.min.js" ></script>
+<script type="text/javascript" src="../js/bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+<script type="text/javascript"></script>
+<link href="../style/bootstrap.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../style/font-awesome.css"/>
+</head>
+<body>
+<div class="containter">
+ <div class="box">
+   <div class="theme"></div>
+   <div class="title"></div>
+   <div class="welcome">
+   <marquee direction="left" behavior="scroll"  scrollamount="3"  onmouseover="this.stop();"   onmouseout="this.start();">欢迎访问大黑牛旅游网！</marquee>
+   </div>
+   <div class="area">
+       <div class="left">
+          <ul>
+							<li><a href="jindian-add.html" >旅游景点添加</a>
+							</li>
+							<li><a href="jindian-list.html">旅游景点维护</a>
+							</li>
+							<li><a href="ticket-add.html">旅游门票添加</a>
+							</li>
+							<li><a href="ticket-list.html">旅游门票维护</a>
+							</li>
+							<li><a href="xianlu-add.html">旅游线路添加</a>
+							</li>
+							<li><a href="xianlu-list.html">旅游线路维护</a>
+							</li>
+							<li><a href="xinwen-add.html">网站新闻添加</a>
+							</li>
+							<li><a href="xinwen-list.html">网站新闻维护</a>
+							</li>
+							<li><a href="admin-add.html" >管理用户添加</a>
+							</li>
+							<li><a href="admin-list.html" id="click">管理用户维护</a>
+							</li>
+          </ul>
+       </div>
+       <div class="right" id="right">
+            <div class="clear"></div>
+          <button class=""></button>
+       </div>
+   </div>
+ </div>
+</div>
+</body>
+<script>$(function() {
+
+	$.ajax({
+		type: "get",
+		url: "../admin/selectall.do",
+		async: true,
+		dataType: "json"
+	}).done(function(data) {
+		if (data.success == true) {
+			$.each(data.data, function(i, item) {
+				var id=item.id;
+				var username = item.username;
+				$("#right").prepend("<div><label class='control-label col-lg-3'>username："+username+"</label>"
+				+ "<button type='button' value='"+id+"' class='btn btn-danger btn active btn-small' role='button'>删除</button></div>")
+			});
+		} else {
+			alert("error")
+		}
+	
+		$(".btn-danger").on("click",function(){
+		$.post("../admin/delete.do",{id:$(this).val()},function(data){
+			var jsonobj = jQuery.parseJSON(data);
+					if (jsonobj.hasErrors == false) {
+						alert("管理用户信息删除成功");
+						window.location.href = "admin-list.html";
+					} else {
+						alert("管理用户信息删除失败");
+					}
+		})
+	});
+	
+	});
+
+})
+</script>
+</html>

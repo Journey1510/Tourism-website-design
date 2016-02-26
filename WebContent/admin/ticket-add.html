@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>大黑牛旅游网-后台管理系统</title>
+		<script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link href="../style/bootstrap.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../style/font-awesome.css" />
+		<link href="../style/style.css" rel="stylesheet" />
+
+		<!-- HTML5 Support for IE -->
+		<!--[if lt IE 9]>
+  <script src="js/html5shim.js"></script>
+  <![endif]-->
+
+	</head>
+
+	<body>
+		<div class="containter">
+			<div class="box">
+				<div class="theme"></div>
+				<div class="title"></div>
+				<div class="welcome">
+					<marquee direction="left" behavior="scroll" scrollamount="3" onmouseover="this.stop();" onmouseout="this.start();">欢迎访问大黑牛旅游网！</marquee>
+				</div>
+				<div class="area">
+					<div class="left">
+						<ul>
+							<li><a href="jindian-add.html" >旅游景点添加</a>
+							</li>
+							<li><a href="jindian-list.html">旅游景点维护</a>
+							</li>
+							<li><a href="ticket-add.html" id="click">旅游门票添加</a>
+							</li>
+							<li><a href="ticket-list.html">旅游门票维护</a>
+							</li>
+							<li><a href="xianlu-add.html">旅游线路添加</a>
+							</li>
+							<li><a href="xianlu-list.html">旅游线路维护</a>
+							</li>
+							<li><a href="xinwen-add.html">网站新闻添加</a>
+							</li>
+							<li><a href="xinwen-list.html">网站新闻维护</a>
+							</li>
+							<li><a href="admin-add.html" >管理用户添加</a>
+							</li>
+							<li><a href="admin-list.html">管理用户维护</a>
+							</li>
+						</ul>
+					</div>
+					<div class="right">
+						<form>
+							<span>门票名称</span>
+							<input id="name" name="name" />
+							<br />
+							<span>门票价格</span>
+							<input id="price" name="price" />
+							<br />
+							<span>门票描述</span>
+							<textarea id="text" name="text"></textarea><br />
+							<button type="button" class="btn btn-success" id="button" name="button">提交</button>
+							<button type="reset" class="btn btn-default">重置</button>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</body>
+
+	<!-- JS -->
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/bootstrap.js"></script>
+	<script>
+		$(function() {
+			$("#button").on("click", function() {
+				$.post("../ticket/insert.do", {
+					name: $("#name").val(),
+					text: $("#text").val(),
+					price:$("#price").val()
+				}, function(data) {
+					var jsonobj = jQuery.parseJSON(data);
+					if (jsonobj.hasErrors == false) {
+						alert("门票信息提交成功");
+						window.location.href = "ticket-list.html";
+					} else {
+						alert("门票信息提交失败");
+					}
+				})
+			})
+		})
+	</script>
+
+</html>

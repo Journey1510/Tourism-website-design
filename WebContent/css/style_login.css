@@ -1,0 +1,216 @@
+body{
+	background-image:url(../image/background.jpg);
+	margin:0px;
+	padding:0px;
+	font-size:12px;
+	font-family:"宋体";
+
+}
+img{
+	
+	border:0px;
+}
+a{
+	
+	color:#000000;
+	text-decoration:none;
+}
+
+.logo{
+	width: 676px;
+	height: -1px;
+	font-size: 54px;
+	font-wieght: bolder;
+	font-family: "宋体";
+	height: 70px;
+	color: rgb(1, 1, 136);
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 33px;
+
+}
+.loginArea{
+    width:983px;
+	height:381px;
+	background-image:url(../image/login1.png);
+	margin-left: auto;
+    margin-right: auto;
+    margin-top: 14px;
+}
+.login{
+	position: absolute;
+	left: 809px;
+	top: 286px;
+}
+.username,.password{
+	height: 40px;
+}
+.user,.pw{
+	font-size:16px;
+	color:#252121;
+	width:73px;
+	text-align:right;
+	display:inline-block;
+}
+.inputText{
+	width: 176px;
+	height: 23px;
+	border-radius: 3px;
+	border: 1px solid #cccccc;
+}
+.loginBtn{
+	width: 50px;
+	height: 22px;
+	color:white;
+	font-size: 16px;
+	background-color: rgb(51, 103, 216);
+	border: 2px solid rgb(151, 191, 243);
+	outline: 1px solid rgb(36, 57, 216);
+	margin-right: 23px;
+}
+.loginBtn:hover{
+	width: 50px;
+	height: 22px;
+	color:white;
+	font-size: 16px;
+	background-color: rgb(10, 69, 173);
+	border: 2px solid rgb(151, 191, 243);
+	outline: 1px solid rgb(36, 57, 216);
+}
+.resetBtn{
+	width: 74px;
+	height: 28px;
+	color: white;
+	font-size: 16px;
+	background-color: rgb(185, 130, 13);
+	border: 2px solid rgb(247, 201, 133);
+	outline: 1px solid rgb(248, 167, 24);
+	
+}
+.resetBack{
+	width: 74px;
+	height: 28px;
+	color: white;
+	font-size: 16px;
+	background-color: rgb(185, 130, 13);
+	border: 2px solid rgb(247, 201, 133);
+	outline: 1px solid rgb(248, 167, 24);
+	
+}
+.resetBack:hover{
+	width: 74px;
+	height: 28px;
+	color:white;
+	font-size: 16px;
+	background-color: rgb(163, 111, 0);
+	border: 2px solid rgb(247, 201, 133);
+	outline: 1px solid rgb(248, 167, 24);
+}
+.resetBtn:hover{
+	width: 74px;
+	height: 28px;
+	color:white;
+	font-size: 16px;
+	background-color: rgb(163, 111, 0);
+	border: 2px solid rgb(247, 201, 133);
+	outline: 1px solid rgb(248, 167, 24);
+}
+.content{
+  width:970px;
+  overflow:auto;
+
+  margin-left:auto;
+  margin-right:auto;
+}
+.maincontent{
+	
+	width:970px;
+	overflow:auto;
+	margin-top: 22px;
+	
+}
+.nav{
+	float:left;
+	overflow:auto;
+	border: 1px solid #cccccc;
+    border-bottom: none;
+}
+#navPage{
+ width:190px;
+ height:420px;
+ padding-left:0px;
+ margin-top:0px;
+ background: linear-gradient(180deg, #F5FAF7 0%, #E4FCEE 50%, #C2FDE6 100%);
+}
+.right_content{
+	float:left;
+	width:770px;
+	height:420px;
+    padding-left:0px;
+    margin-top:0px;
+    margin-left:6px;
+    border:1px solid #cccccc;
+    border-bottom: none;
+}
+.footer{
+	width:968px;
+	height:84px;
+	border:1px solid #cccccc;
+	background-color:#C2FDE6;
+}
+.footer_word{
+	font-size:20px;
+	color:black;
+	padding-left: 216px;
+    padding-top: 36px;	
+}
+.btn{
+	
+	width: 83px;
+    height: 32px;
+}
+.btn:hover{
+	
+	width: 83px;
+    height: 32px;
+    background-color: #cccccc;
+    border: 1px solid #B3B1B1;
+}
+.menu_word{
+	
+	display: block;
+	font-size: 28px;
+	font-weight: bold;
+	margin-top: 16px;
+	
+}
+.right_dataTable{
+	width:100%;
+}
+.right_dataTable th{
+	 border:1px solid #cccccc;
+	 height:30px;
+	 line-height:30px;
+	 
+}
+.right_dataTable td{
+	 border:1px solid #cccccc;
+	 height:30px;
+	 line-height:30px;
+	 border-top:none;
+}
+.right_dataTable tbody tr:hover{
+	 background-color:rgb(232, 253, 237);
+}
+.top_btn{
+	
+	 height:40px;
+	 line-height:40px;
+	 padding-left:20px;
+	 padding-top: 10px;
+}
+.inputText{
+	
+	width: 200px;
+   height: 22px;
+}
